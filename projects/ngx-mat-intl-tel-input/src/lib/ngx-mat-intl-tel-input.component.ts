@@ -124,6 +124,9 @@ export class NgxMatIntlTelInputComponent
   @Input() searchPlaceholder: string | undefined;
   @Input() describedBy = '';
   @Input() label = '';
+  DEFAULT_MAX_LENGTH: number = 18;
+  @Input() maxLength = this.DEFAULT_MAX_LENGTH;
+  fieldLength!: number;
 
   @Input()
   get format(): PhoneNumberFormat {
@@ -231,12 +234,20 @@ export class NgxMatIntlTelInputComponent
 
   public onPhoneNumberChange(): void {
     try {
+      const phoneNumber = this.phoneNumber?.toString()  || '';
       this.numberInstance = parsePhoneNumberFromString(
-        this.phoneNumber?.toString() || '',
+        phoneNumber,
         this.selectedCountry?.iso2.toUpperCase() as CC
       );
       this.formatAsYouTypeIfEnabled();
       this.value = this.numberInstance?.number;
+      if(this.selectedCountry) {
+        this.maxLength = this.DEFAULT_MAX_LENGTH - this.selectedCountry.dialCode.length;
+        //This condition is added for safety previously the number instance would give an undefined value and which would show incorrect error like required field
+        if(!this.value && phoneNumber?.length >1) {
+          this.value = "+"+this.selectedCountry.dialCode+phoneNumber;
+        }
+      }
       if (this.numberInstance && this.numberInstance.isValid()) {
         if (this.phoneNumber !== this.formattedPhoneNumber) {
           this.phoneNumber = this.formattedPhoneNumber;
