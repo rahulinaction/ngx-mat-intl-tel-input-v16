@@ -68,10 +68,13 @@
     (blur)="onTouched()"
     (keypress)="onInputKeyPress($event)"
     [(ngModel)]="phoneNumber"
+    [maxlength]="maxLength"
     (ngModelChange)="onPhoneNumberChange()"
     [errorStateMatcher]="errorStateMatcher"
     [placeholder]="inputPlaceholder"
+    pattern="[0-9-() ]+"
     [disabled]="disabled"
+
     [aria-describedby]="describedBy"
     #focusable
   />
