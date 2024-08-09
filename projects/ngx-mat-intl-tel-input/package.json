@@ -1,6 +1,6 @@
 {
-  "name": "ngx-mat-intl-tel-input-v17",
-  "version": "17.1.0",
+  "name": "ngx-mat-intl-tel-input-triparc",
+  "version": "17.3.0",
   "peerDependencies": {
     "@angular/common": ">=14.x",
     "@angular/core": ">=14.x",

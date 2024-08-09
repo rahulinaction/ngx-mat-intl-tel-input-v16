@@ -68,6 +68,7 @@
     (blur)="onTouched()"
     (keypress)="onInputKeyPress($event)"
     [(ngModel)]="phoneNumber"
+    [maxlength]="maxLength"
     (ngModelChange)="onPhoneNumberChange()"
     [errorStateMatcher]="errorStateMatcher"
     [placeholder]="inputPlaceholder"
