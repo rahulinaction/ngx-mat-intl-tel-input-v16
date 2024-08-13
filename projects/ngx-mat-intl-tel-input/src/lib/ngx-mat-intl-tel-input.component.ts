@@ -295,7 +295,7 @@ export class NgxMatIntlTelInputComponent
   }
 
   public onInputKeyPress(event: KeyboardEvent): void {
-    const pattern = /[0-9+\- ]/;
+    const pattern = /[0-9]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
