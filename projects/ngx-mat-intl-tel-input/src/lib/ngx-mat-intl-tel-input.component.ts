@@ -243,7 +243,8 @@ export class NgxMatIntlTelInputComponent
       this.formatAsYouTypeIfEnabled();
       this.value = this.numberInstance?.number;
       if(this.selectedCountry) {
-        this.inputMaxLength = this.maxLength - this.selectedCountry.dialCode.length;
+        const delta = phoneNumber.length - phoneNumber.replace(/[^0-9]/g, "").length;
+        this.inputMaxLength = this.maxLength + delta;
         //This condition is added for safety previously the number instance would give an undefined value and which would show incorrect error like required field
         if(!this.value && phoneNumber?.length >1) {
           this.value = "+"+this.selectedCountry.dialCode+phoneNumber;
