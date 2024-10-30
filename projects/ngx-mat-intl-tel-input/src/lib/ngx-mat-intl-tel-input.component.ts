@@ -351,7 +351,7 @@ export class NgxMatIntlTelInputComponent
         setTimeout(() => {
           this.selectedCountry = this.getCountry(countryCode);
           if (
-            this.selectedCountry.dialCode &&
+            this.selectedCountry?.dialCode &&
             !this.preferredCountries.includes(this.selectedCountry.iso2)
           ) {
             this.preferredCountriesInDropDown.push(this.selectedCountry);
