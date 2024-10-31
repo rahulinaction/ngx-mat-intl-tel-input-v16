@@ -72,15 +72,15 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sherinsamuel71/ngx-mat-intl-tel-input-v16.git"
+    "url": "git+https://github.com/rahulinaction/ngx-mat-intl-tel-input-v16.git"
   },
   "keywords": [
     "ngx-mat-intl-tel-input"
   ],
-  "author": "sherin-samuel",
+  "author": "rahul-mend",
   "license": "(MIT)",
   "bugs": {
-    "url": "https://github.com/sherinsamuel71/ngx-mat-intl-tel-input-v16/issues"
+    "url": "https://github.com/rahulinaction/ngx-mat-intl-tel-input-v16/issues"
   },
-  "homepage": "https://github.com/sherinsamuel71/ngx-mat-intl-tel-input-v16#readme"
+  "homepage": "https://github.com/rahulinaction/ngx-mat-intl-tel-input-v16#readme"
 }
