@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-intl-tel-input-triparc",
-  "version": "17.7.0",
+  "version": "17.8.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
