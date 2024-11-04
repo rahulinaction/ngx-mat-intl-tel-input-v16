@@ -158,7 +158,7 @@ export class NgxMatIntlTelInputComponent
   @Output() countryChanged = new EventEmitter<Country>();
 
   private previousFormattedNumber: string | undefined;
-  private _format: PhoneNumberFormat = 'default';
+  private _format: PhoneNumberFormat = 'international';
 
   static getPhoneNumberPlaceHolder(countryISOCode: CC): string | undefined {
     const result = getExampleNumber(countryISOCode, Examples);
@@ -443,7 +443,13 @@ export class NgxMatIntlTelInputComponent
       case 'national':
         return this.numberInstance.formatNational();
       case 'international':
-        return this.numberInstance.formatInternational();
+        const countryCallingCode = this.selectedCountry?.dialCode;
+        let filteredCode = countryCallingCode;
+        if( countryCallingCode && countryCallingCode?.length >=4) {
+          filteredCode = countryCallingCode.substring(0,1)+" "+countryCallingCode.substring(1,countryCallingCode.length);
+        }
+        filteredCode = `+${filteredCode}`;
+        return this.numberInstance.formatInternational().replace(filteredCode,"");
       default:
         return this.numberInstance.nationalNumber.toString();
     }
