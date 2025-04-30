@@ -59,7 +59,6 @@
       </button>
     </ng-container>
   </mat-menu>
-  <!-- <label [for]="focusable.id" class="sr-only">{{label||focusable.id}}</label> -->
   <input
     matInput
     type="tel"
@@ -69,7 +68,8 @@
     (keypress)="onInputKeyPress($event)"
     [(ngModel)]="phoneNumber"
     [maxlength]="inputMaxLength"
-    (ngModelChange)="onPhoneNumberChange()"
+    (ngModelChange)="onInputChange($event)"
+   
     [errorStateMatcher]="errorStateMatcher"
     [placeholder]="inputPlaceholder"
     [disabled]="disabled"

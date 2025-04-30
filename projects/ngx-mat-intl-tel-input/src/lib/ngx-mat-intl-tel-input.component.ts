@@ -55,7 +55,7 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatMenu, MatMenuModule } from '@angular/material/menu';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, fromEvent, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { SearchPipe } from './search.pipe';
 
 class NgxMatIntlTelInputBase {
@@ -127,6 +127,8 @@ export class NgxMatIntlTelInputComponent
   DEFAULT_MAX_LENGTH: number = 18;
   @Input() maxLength = this.DEFAULT_MAX_LENGTH;
   inputMaxLength: number=this.maxLength;
+  public onModelChangeSubject = new Subject<string>();
+
   fieldLength!: number;
 
   @Input()
@@ -141,6 +143,7 @@ export class NgxMatIntlTelInputComponent
   }
 
   @ViewChild(MatMenu) matMenu: MatMenu | undefined;
+
   private _placeholder: string | undefined;
   private _required = false;
   private _disabled = false;
@@ -155,6 +158,7 @@ export class NgxMatIntlTelInputComponent
   numberInstance: PhoneNumber | undefined;
   value: E164Number | string | undefined;
   searchCriteria: string | undefined;
+  private destroy$ = new Subject<void>();
   @Output() countryChanged = new EventEmitter<Country>();
 
   private previousFormattedNumber: string | undefined;
@@ -193,7 +197,22 @@ export class NgxMatIntlTelInputComponent
     }
   }
 
+  onInputChange(value: string) {
+    this.onModelChangeSubject.next(value)
+  }
+
   ngOnInit(): void {
+
+    this.onModelChangeSubject.pipe(
+      debounceTime(500), 
+      distinctUntilChanged(), 
+      tap(() => {
+        this.onPhoneNumberChange();
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe();
+
+
     if (!this.searchPlaceholder) {
       this.searchPlaceholder = 'Search ...';
     }
@@ -433,6 +452,8 @@ export class NgxMatIntlTelInputComponent
   ngOnDestroy(): void {
     this.stateChanges.complete();
     this.fm.stopMonitoring(this.elRef);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private get formattedPhoneNumber(): string {
