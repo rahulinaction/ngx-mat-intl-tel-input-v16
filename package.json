@@ -1,6 +1,6 @@
 {
   "name": "ngx-mat-intl-tel-input-triparc",
-  "version": "17.8.8",
+  "version": "17.8.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build_lib": "ng build ngx-mat-intl-tel-input",
+    "build_lib": "ng build ngx-mat-intl-tel-input --configuration=production",
     "npm_pack": "cd dist/ngx-mat-intl-tel-input-triparc && npm pack",
     "package": "npm run build_lib && npm run copy-files && npm run npm_pack",
     "copy-license": "cp ./LICENSE ./dist/ngx-mat-intl-tel-input-triparc",
