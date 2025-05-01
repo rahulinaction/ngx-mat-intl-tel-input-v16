@@ -39,12 +39,12 @@
         #phone
       ></ngx-mat-intl-tel-input>
       <mat-hint>e.g. {{ phone.selectedCountry?.placeHolder }}</mat-hint>
-      <mat-error *ngIf="phoneForm.controls.phone.errors?.required">
+      <mat-error *ngIf="phoneForm.controls.phone.errors?.required && !typingStatus">
         Required Field
       </mat-error>
       <mat-error
         *ngIf="
-          f.submitted && phoneForm.controls.phone.errors?.validatePhoneNumber
+          f.submitted && phoneForm.controls.phone.errors?.validatePhoneNumber && !typingStatus 
         "
       >
         Invalid Number
@@ -106,18 +106,20 @@
         [enableSearch]="true"
         [onlyCountries]="['us', 'cl', 've']"
         [searchPlaceholder]="'Buscar...'"
+        (isTyping)="typingStatus=$event"
         [formControl]="profileForm.controls.phone"
         placeholder="Enter Number"
         #phone1
       ></ngx-mat-intl-tel-input>
       <mat-hint>e.g. {{ phone1.selectedCountry?.placeHolder }}</mat-hint>
-      <mat-error *ngIf="profileForm.controls.phone.errors?.required">
+      <mat-error *ngIf="profileForm.controls.phone.errors?.required && !typingStatus">
         Required Field
       </mat-error>
-      <mat-error *ngIf="profileForm.controls.phone.errors?.validatePhoneNumber">
+      <mat-error *ngIf="profileForm.controls.phone.errors?.validatePhoneNumber && !typingStatus">
         Invalid Number
       </mat-error>
     </mat-form-field>
+    <p>Typing {{typingStatus}}</p>
   </form>
 
   <div>

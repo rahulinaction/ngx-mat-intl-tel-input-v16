@@ -124,6 +124,7 @@ export class NgxMatIntlTelInputComponent
   @Input() searchPlaceholder: string | undefined;
   @Input() describedBy = '';
   @Input() label = '';
+
   DEFAULT_MAX_LENGTH: number = 18;
   @Input() maxLength = this.DEFAULT_MAX_LENGTH;
   inputMaxLength: number=this.maxLength;
@@ -160,6 +161,7 @@ export class NgxMatIntlTelInputComponent
   searchCriteria: string | undefined;
   private destroy$ = new Subject<void>();
   @Output() countryChanged = new EventEmitter<Country>();
+  @Output() isTyping = new EventEmitter<boolean>();
 
   private previousFormattedNumber: string | undefined;
   private _format: PhoneNumberFormat = 'international';
@@ -204,9 +206,14 @@ export class NgxMatIntlTelInputComponent
   ngOnInit(): void {
 
     this.onModelChangeSubject.pipe(
+      tap(()=>{
+        //Disable errors here while typing
+        this.isTyping.emit(true);
+      }),
       debounceTime(500), 
       distinctUntilChanged(), 
       tap(() => {
+        this.isTyping.emit(false);
         this.onPhoneNumberChange();
       }),
       takeUntil(this.destroy$)

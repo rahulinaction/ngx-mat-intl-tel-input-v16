@@ -56,14 +56,19 @@ export class AppComponent implements AfterViewInit {
     phone: new FormControl(null),
   });
 
+  typingStatus = false;
+
   constructor() {}
 
   onSubmit() {
-    console.log('onSubmit', this.phoneForm);
   }
 
   onReset() {
     this.phoneForm.reset();
+  }
+
+  setTypingStatus(status: any) {
+    this.typingStatus = status;
   }
 
   ngAfterViewInit() {
