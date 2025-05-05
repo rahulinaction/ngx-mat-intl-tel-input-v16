@@ -210,7 +210,7 @@ export class NgxMatIntlTelInputComponent
         //Disable errors here while typing
         this.isTyping.emit(true);
       }),
-      debounceTime(500), 
+      debounceTime(1200), 
       distinctUntilChanged(), 
       tap(() => {
         this.isTyping.emit(false);
